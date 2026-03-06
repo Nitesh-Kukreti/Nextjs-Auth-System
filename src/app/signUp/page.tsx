@@ -1,24 +1,53 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Axios } from "axios";
+import axios, { Axios } from "axios";
+import {toast} from "react-hot-toast";
 
 export default function SignUpPage() {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
     username: "",
   });
 
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
   const onSignUp = async () => {
-    console.log("user trying to sign up");
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/signup", user);
+      console.log("signup success", response.data);
+      router.push("/login");
+    } catch (error: any) {
+      console.log("signup failed", error.message);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.password.length > 0 &&
+      user.username.length > 0
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <div className="h-12">
-        <h1 className="text-3xl font-semibold">Sign Up</h1>
+        <h1 className="text-3xl font-semibold">
+          {loading ? "Processing" : "Sign Up"}
+        </h1>
       </div>
 
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -34,6 +63,7 @@ export default function SignUpPage() {
             id="username"
             type="text"
             placeholder="Username"
+            onChange={(e) => setUser({ ...user, username: e.target.value })}
           />
         </div>
         <div className="mb-4">
@@ -48,6 +78,7 @@ export default function SignUpPage() {
             id="email"
             type="text"
             placeholder="email"
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
         </div>
         <div className="mb-6">
@@ -71,7 +102,7 @@ export default function SignUpPage() {
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
           >
-            Sign In
+            {buttonDisabled ? "No signup" : "Signup"}
           </button>
         </div>
         <hr />
