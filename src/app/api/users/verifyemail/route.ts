@@ -2,12 +2,9 @@ import { connect } from "@/dbConfig/dbConfig";
 import { NextResponse, NextRequest } from "next/server";
 import User from "@/models/userModel";
 
-
-
 connect();
 
 export async function POST(request: NextResponse) {
-
   try {
     const reqBody = await request.json();
     const { token } = reqBody;
@@ -25,16 +22,13 @@ export async function POST(request: NextResponse) {
 
     user.isVerified = true;
     user.verifyToken = undefined;
-    user.verfiyTokenExpiry = undefined;
-    const savedUser = await user.save();
+    user.verifyTokenExpiry = undefined;
+    await user.save();
 
-   
     return NextResponse.json({
       message: "Email verified successfully",
       success: true,
     });
-
-    
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
