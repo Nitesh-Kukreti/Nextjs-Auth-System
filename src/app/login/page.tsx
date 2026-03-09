@@ -22,7 +22,7 @@ export default function LoginPage() {
       const response = await axios.post("api/users/login", user);
       console.log("Login success", response.data);
       toast.success("Login success");
-      router.push("/profile");
+      router.push("/dashboard");
     } catch (error: any) {
       console.log("Login falied", error.message);
       toast.error(error.message);
@@ -41,8 +41,11 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+     
       <div className="h-12">
-        <h1 className="text-3xl font-semibold">{loading ? "Processing": "Login"}</h1>
+        <h1 className="text-3xl font-semibold">
+          {loading ? "Processing" : "Login"}
+        </h1>
       </div>
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
