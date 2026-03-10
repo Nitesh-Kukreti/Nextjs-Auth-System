@@ -15,25 +15,19 @@ export default function DashboardPage() {
     getUser();
   }, []);
 
-  return (
-    <div>
-      <h1 className=" mt-5 w-full flex justify-center text-4xl ">
-        DASHBOARD PAGE
-      </h1>
+ return (
+   <main className="min-h-screen flex flex-col items-center justify-center px-4">
+     <h1 className="text-4xl font-bold mb-6">Dashboard</h1>
 
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
-        <h3 className="w-full flex justify-center text-2xl">
-          hello{` ${user?.username || "user"}`}
-        </h3>
-        <div className="flex w-full align-middle justify-center">
-          <Link
-            href="/profile"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Profile
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+     <h2 className="text-2xl mb-6">Hello {user?.username ?? "User"}</h2>
+
+     <Link
+       href="/profile"
+       className="bg-blue-500 hover:bg-blue-600 transition text-white px-6 py-2 rounded-lg"
+     >
+       Go to Profile
+     </Link>
+   </main>
+ );
 }
+
