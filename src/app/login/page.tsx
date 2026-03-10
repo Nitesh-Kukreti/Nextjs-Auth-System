@@ -90,12 +90,12 @@ export default function LoginPage() {
           </button>
         </div>
         <hr />
-        <a
+        <Link
           className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-          href="#"
+          href="/forgot-password"
         >
           Forgot Password?&nbsp;
-        </a>
+        </Link>
         <Link
           className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
           href="/signup"

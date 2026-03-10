@@ -52,7 +52,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
   </p>
 
   <div style="text-align:center; margin:30px 0;">
-    <a href="${process.env.DOMAIN}/verify-email?token=${hashedToken}"
+    <a href="${process.env.DOMAIN}${emailType === "VERIFY" ? "/verify-email" : "/reset-password"}?token=${hashedToken}"
        style="
          background-color:#4CAF50;
          color:white;
@@ -71,7 +71,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
   </p>
 
   <p style="word-break:break-all; color:#3498db;">
-    ${process.env.DOMAIN}/verify-email?token=${hashedToken}
+    ${process.env.DOMAIN}${emailType === "VERIFY" ? "/verify-email" : "/reset-password"}?token=${hashedToken}
   </p>
 
   <p style="margin-top:30px;">

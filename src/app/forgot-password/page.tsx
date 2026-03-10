@@ -1,13 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(email);
+
+    try {
+      setLoading(true)
+      const res = await axios.post("/api/users/forgot-password", {
+        email: email,
+      });
+      console.log("Password reset email sent", res.data);
+    } catch (error: any) {
+      console.log(
+        "Failed to reset password",
+        error.response || "something went wrong",
+      );
+      console.log(error.response.data)
+    }finally{setLoading(false)}
+
   };
 
   return (
@@ -17,7 +33,7 @@ export default function ForgotPassword() {
         className="flex flex-col gap-4 w-80 p-6 border rounded-lg bg-white"
       >
         <h1 className="text-2xl font-bold text-center text-black">
-          Forgot Password
+          {loading ? "Processing..." : "Forgot Password"}
         </h1>
 
         <input

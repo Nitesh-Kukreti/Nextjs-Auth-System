@@ -9,9 +9,10 @@ export function proxy(request: NextRequest) {
   const isPublicPath =
     path === "/login" ||
     path === "/signup" ||
-    path === "/verifyemail" ||
+    path === "/verify-email" ||
     path === "/" ||
-    path === "/forgot-password";
+    path === "/forgot-password" || 
+    path === "/reset-password"
 
   const token = request.cookies.get("token")?.value || "";
 

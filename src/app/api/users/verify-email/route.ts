@@ -1,7 +1,7 @@
-import { connect } from "@/dbConfig/dbConfig";
 import { NextResponse, NextRequest } from "next/server";
 import User from "@/models/userModel";
 
+import { connect } from "@/dbConfig/dbConfig";
 connect();
 
 export async function POST(request: NextResponse) {
@@ -16,7 +16,7 @@ export async function POST(request: NextResponse) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "Invalid tokne" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid token" }, { status: 400 });
     }
     console.log(user);
 

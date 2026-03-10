@@ -1,22 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ResetPassword() {
+  const router = useRouter();
   const [form, setForm] = useState({
     newPassword: "",
     confirmPassword: "",
   });
 
+  const [token, setToken] = useState("");
+
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
-    console.log(form);
+
+    try {
+      if (form.newPassword !== form.confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      const res = await axios.post("/api/users/reset-password", {
+        token,
+        newPassword: form.newPassword,
+      });
+
+      console.log(res.data);
+      router.push("/login");
+    } catch (error: any) {
+      console.log(error.response);
+    }
   };
+
+  useEffect(() => {
+    const urlToken = window.location.search.split("=")[1];
+    setToken(urlToken || "");
+  }, []);
 
   return (
     <main className="min-h-screen flex items-center justify-center">
