@@ -31,6 +31,8 @@ export async function POST(request: NextResponse) {
 
     // store hashed password to the database
     user.password = hashedPassword;
+    user.forgotPasswordToken = undefined;
+    user.forgotPasswordTokenExpiry = undefined;
     await user.save();
 
     return NextResponse.json({
