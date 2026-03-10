@@ -10,7 +10,8 @@ export function proxy(request: NextRequest) {
     path === "/login" ||
     path === "/signup" ||
     path === "/verifyemail" ||
-    path === "/";
+    path === "/" ||
+    path === "/forgot-password";
 
   const token = request.cookies.get("token")?.value || "";
 
@@ -24,5 +25,17 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/profile", "/login", "/signup", "/verifyemail", "/dashboard"],
+  matcher: [
+    "/",
+    "/profile",
+    "/login",
+    "/signup",
+    "/verifyemail",
+    "/dashboard",
+    "/change-password",
+    "/forgot-password",
+    "/reset-password",
+  ],
 };
+
+// ,"/reset-password"

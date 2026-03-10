@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import {toast} from "react-hot-toast";
 
 export default function SignUpPage() {
@@ -16,7 +16,8 @@ export default function SignUpPage() {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const onSignUp = async () => {
+  const onSignUp = async (e: any) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
@@ -50,7 +51,9 @@ export default function SignUpPage() {
         </h1>
       </div>
 
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form 
+      onSubmit={onSignUp}
+      className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -76,7 +79,7 @@ export default function SignUpPage() {
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
-            type="text"
+            type="email"
             placeholder="email"
             onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
@@ -98,9 +101,8 @@ export default function SignUpPage() {
         </div>
         <div className="flex items-center justify-between">
           <button
-            onClick={onSignUp}
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
+            type="submit"
           >
             {buttonDisabled ? "No signup" : "Signup"}
           </button>
@@ -108,7 +110,7 @@ export default function SignUpPage() {
         <hr />
         <a
           className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-          href="#"
+          href="/forgot-password"
         >
           Forgot Password?&nbsp;
         </a>

@@ -35,7 +35,7 @@ export default function ProfilePage() {
 
     const deleteUser =async () => {
       const res = await axios.delete("api/users/delete")
-      
+      console.log(res)
       router.push("/signup")
 
     }
@@ -80,7 +80,7 @@ export default function ProfilePage() {
             Edit Profile
           </button>
 
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded">
+          <button onClick={() => {router.push("/change-password")}} className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded">
             Change Password
           </button>
           <button
