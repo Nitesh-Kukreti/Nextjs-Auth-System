@@ -6,7 +6,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center text-center px-6">
       <h1 className="text-5xl font-bold mb-6">Welcome</h1>
 
-      <p className="text-lg text-gray-600 mb-8">
+      <p className="text-4xl text-gray-600 mb-8">
         Full authentication system built with Next.js
       </p>
 
